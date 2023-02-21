@@ -9,5 +9,5 @@ public interface PilotoServicio {
     Piloto findPiloto(String id);
     Piloto createPiloto(Piloto piloto);
     Piloto updatePiloto(Piloto piloto);
-    void deletePiloto(String id);
+    Piloto deletePiloto(String id);
 }

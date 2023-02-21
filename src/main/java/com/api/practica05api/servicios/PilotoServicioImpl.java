@@ -34,7 +34,9 @@ public class PilotoServicioImpl implements PilotoServicio {
     }
 
     @Override
-    public void deletePiloto(String id) {
+    public Piloto deletePiloto(String id) {
+        Piloto pilotoBorrado = findPiloto(id);
         pilotoRepositorio.deleteById(id);
+       return pilotoBorrado;
     }
 }

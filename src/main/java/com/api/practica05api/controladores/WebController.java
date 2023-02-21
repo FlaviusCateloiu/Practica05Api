@@ -3,10 +3,9 @@ package com.api.practica05api.controladores;
 import com.api.practica05api.modelos.Piloto;
 import com.api.practica05api.servicios.PilotoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Controller;
-import org.springframework.ui.Model;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -30,7 +29,7 @@ public class WebController {
     }
 
     @PostMapping(value = "/api/pilotos")
-    public ResponseEntity<Piloto> addPiloto(@RequestBody Piloto piloto) {
+    public ResponseEntity<Piloto> addPiloto(@RequestBody @Validated Piloto piloto) {
         return ResponseEntity.ok(pilotoServicio.createPiloto(piloto));
     }
 

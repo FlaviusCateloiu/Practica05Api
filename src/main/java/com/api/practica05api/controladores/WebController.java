@@ -4,13 +4,11 @@ import com.api.practica05api.modelos.Piloto;
 import com.api.practica05api.servicios.PilotoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
-import org.springframework.stereotype.Controller;
-import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@Controller
+@RestController
 public class WebController {
 
     @Autowired
@@ -29,8 +27,13 @@ public class WebController {
     }
 
     @PostMapping(value = "/api/pilotos")
-    public ResponseEntity<Piloto> addPiloto(@RequestBody @Validated Piloto piloto) {
+    public ResponseEntity<Piloto> addPiloto(@RequestBody Piloto piloto) {
         return ResponseEntity.ok(pilotoServicio.createPiloto(piloto));
+    }
+
+    @PutMapping(value = "/api/pilotos/{id}")
+    public ResponseEntity<Piloto> updatePiloto(@PathVariable("id") String id, @RequestBody Piloto piloto) {
+        return ResponseEntity.ok(pilotoServicio.updatePiloto(piloto));
     }
 
     @DeleteMapping(value = "/api/pilotos/{id}")

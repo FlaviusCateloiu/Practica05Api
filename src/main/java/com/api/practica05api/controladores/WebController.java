@@ -3,6 +3,7 @@ package com.api.practica05api.controladores;
 import com.api.practica05api.modelos.Piloto;
 import com.api.practica05api.servicios.PilotoServicio;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
@@ -28,12 +29,18 @@ public class WebController {
 
     @PostMapping(value = "/api/pilotos")
     public ResponseEntity<Piloto> addPiloto(@RequestBody Piloto piloto) {
-        return ResponseEntity.ok(pilotoServicio.createPiloto(piloto));
+        return ResponseEntity.status(HttpStatus.CREATED).body(pilotoServicio.createPiloto(piloto));
     }
 
     @PutMapping(value = "/api/pilotos/{id}")
     public ResponseEntity<Piloto> updatePiloto(@PathVariable("id") String id, @RequestBody Piloto piloto) {
-        return ResponseEntity.ok(pilotoServicio.updatePiloto(piloto));
+        Piloto pilotoExistente = pilotoServicio.findPiloto(piloto.getId());
+
+        if (pilotoExistente == null) {
+            return ResponseEntity.notFound().build();
+        }
+
+        return ResponseEntity.status(HttpStatus.CREATED).body(pilotoServicio.updatePiloto(piloto));
     }
 
     @DeleteMapping(value = "/api/pilotos/{id}")
